@@ -56,6 +56,14 @@ gh repo create course-notes --public --source=. --remote=github --push
 
 国内访问 GitHub Pages 不稳定时，可以像参考站一样用浙大 WebVPN 打开。
 
+### 访问密码
+
+站点在 GitHub Actions 里用 [StatiCrypt](https://github.com/robinmoisson/staticrypt) 加密后再发布，密码保存在仓库 Secret `STATICRYPT_PASSWORD` 中，不写进代码。
+
+- 修改密码：仓库 **Settings → Secrets and variables → Actions → STATICRYPT_PASSWORD → Update**，然后重新运行 `构建并部署站点`；
+- 密码页模板在 `方法与工具/staticrypt_template.html`；
+- 这是前端加密门：HTML 内容被加密，但 GitHub/Gitee 仓库、PDF 直链仍然公开，不能替代真正的服务端鉴权。
+
 ## 目录结构
 
 ```
