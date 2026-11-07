@@ -208,28 +208,27 @@ body {
    ============================================================ */
 
 .md-typeset {
-  font-family: var(--serif);
-  font-size: 0.8rem;
-  line-height: 1.9;
+  font-family: var(--sans);
+  font-size: 0.76rem;
+  line-height: 1.85;
   color: var(--ink);
 }
 
 .md-content__inner {
-  max-width: 47rem;
+  max-width: 45rem;
   margin-inline: auto;
   padding-bottom: 3rem;
 }
 
 .md-typeset p {
-  text-align: justify;
-  text-justify: inter-ideograph;
+  text-align: left;
 }
 
 .md-typeset h1,
 .md-typeset h2,
 .md-typeset h3,
 .md-typeset h4 {
-  font-family: var(--serif);
+  font-family: var(--sans);
   color: var(--ink);
   letter-spacing: 0.01em;
 }
@@ -308,7 +307,7 @@ body {
 
 .md-typeset table:not([class]) {
   border: none;
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   line-height: 1.7;
 }
 
@@ -396,9 +395,9 @@ body {
 .home-hero__lede {
   max-width: 34rem;
   margin: 0 0 2.2rem;
-  font-family: var(--serif);
-  font-size: 0.94rem;
-  line-height: 1.95;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  line-height: 1.85;
   color: var(--ink-2);
 }
 
@@ -491,7 +490,7 @@ body {
 }
 
 .home-index__name {
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 1rem;
   font-weight: 600;
 }
@@ -571,7 +570,7 @@ body {
 
 .course-card__title {
   display: block;
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 1.55rem;
   font-weight: 700;
   line-height: 1.35;
@@ -590,7 +589,7 @@ body {
   display: block;
   max-width: 34rem;
   margin-top: 0.6rem;
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 0.82rem;
   line-height: 1.85;
   color: var(--ink-2);
@@ -848,7 +847,7 @@ html.motion-ready .reveal.is-visible {
 
 .chapter-item__title {
   display: block;
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 1.02rem;
   font-weight: 600;
   line-height: 1.5;
@@ -902,7 +901,7 @@ html.motion-ready .reveal.is-visible {
 }
 
 .download-item__label {
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 0.95rem;
   font-weight: 600;
 }
@@ -1017,7 +1016,7 @@ html.motion-ready .reveal.is-visible {
   }
 
   .md-typeset {
-    font-size: 0.78rem;
+    font-size: 0.75rem;
   }
 
   .md-typeset p {
