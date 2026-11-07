@@ -1,0 +1,18 @@
+% shared LaTeX preamble for the Chinese elasticity notes
+\usepackage{newunicodechar}
+\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+\newunicodechar{→}{\ensuremath{\rightarrow}}
+
+% sections are already numbered in Chinese (第一章 / 一、…), suppress LaTeX numbering
+\setcounter{secnumdepth}{-1}
+
+\usepackage{titlesec}
+\titleformat{\section}{\centering\Large\bfseries}{}{0pt}{}
+\titleformat{\subsection}{\large\bfseries}{}{0pt}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{}{0pt}{}
+\titlespacing*{\section}{0pt}{1.2em}{0.8em}
+\titlespacing*{\subsection}{0pt}{1em}{0.5em}
+
+% tighter lists, Chinese-style paragraph indent comes from pandoc's indent variable
+\usepackage{enumitem}
+\setlist{itemsep=2pt, topsep=4pt}

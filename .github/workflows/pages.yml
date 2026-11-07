@@ -1,0 +1,56 @@
+# 推送到 GitHub 后自动构建并部署到 GitHub Pages。
+# 启用方法：仓库 Settings → Pages → Build and deployment → Source 选 GitHub Actions。
+name: 构建并部署站点
+
+on:
+  push:
+    branches: [master, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 启用 / 配置 GitHub Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: 安装 MkDocs Material
+        run: pip install mkdocs-material==9.7.6
+
+      - name: 准备 PDF / Word 并构建
+        run: |
+          mkdir -p docs/弹性力学/pdf
+          cp 弹性力学/*.pdf 弹性力学/*.docx docs/弹性力学/pdf/
+          cp 弹性力学/分章节/*.pdf docs/弹性力学/pdf/
+          mkdocs build --clean
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

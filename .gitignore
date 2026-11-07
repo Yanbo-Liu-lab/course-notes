@@ -1,0 +1,20 @@
+# 渲染中间产物
+**/.work/
+方法与工具/ref_zh.docx
+
+# 站点
+.venv/
+site/
+docs/*/pdf/
+
+# LaTeX / pandoc 临时文件
+*.aux
+*.log
+*.toc
+*.out
+*.fls
+*.fdb_latexmk
+
+# Python 缓存
+__pycache__/
+*.pyc

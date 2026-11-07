@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block hero %}
+<section class="home-hero">
+  <div class="home-hero__inner">
+    <div class="home-hero__copy">
+      <p class="home-hero__meta">大三专业课笔记</p>
+      <h1 class="home-hero__title"><span>知</span><span>枢</span></h1>
+      <p class="home-hero__lede">每门课一个板块，按知识自身的逻辑组织。在线读，也能下载 PDF 和 Word。</p>
+      <div class="home-hero__actions">
+        <a class="hero-btn hero-btn--primary" href="#课程">浏览课程</a>
+      </div>
+    </div>
+
+    <aside class="home-index" aria-label="课程索引">
+      <p class="home-index__label">课程索引</p>
+      {% set ns = namespace(count=0) %}
+      {% for item in nav %}
+        {% if item.title != "首页" %}
+          {% set ns.count = ns.count + 1 %}
+          {% set target = item.url %}
+          {% if not target and item.children %}
+            {% set target = item.children[0].url %}
+          {% endif %}
+          <a class="home-index__row" href="{{ (target or '#') | url }}">
+            <span class="home-index__num">{{ "%02d" | format(ns.count) }}</span>
+            <span class="home-index__name">{{ item.title }}</span>
+            <span class="home-index__arrow" aria-hidden="true">→</span>
+          </a>
+        {% endif %}
+      {% endfor %}
+      <p class="home-index__note">共 {{ ns.count }} 门课程</p>
+    </aside>
+  </div>
+</section>
+{% endblock %}
+
+{% block container %}
+<div class="md-content" data-md-component="content">
+  <article class="md-content__inner md-typeset">
+    {{ page.content }}
+  </article>
+</div>
+{% endblock %}

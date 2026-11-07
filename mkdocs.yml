@@ -1,0 +1,89 @@
+site_name: 知枢
+site_description: 知枢，大三专业课笔记。目前收录弹性力学前七章，按知识逻辑组织的复习笔记
+site_author: 刘研博
+copyright: 个人复习笔记，依据教材整理
+
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  custom_dir: overrides
+  language: zh
+  favicon: assets/favicon.svg
+  logo: assets/logo.svg
+  font: false
+  features:
+    - navigation.indexes
+    - navigation.top
+    - navigation.tracking
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: 切换到深色
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: 切换到浅色
+
+plugins:
+  - search:
+      lang: zh
+
+hooks:
+  - 方法与工具/hooks/clean_search.py
+
+markdown_extensions:
+  - meta
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify {kwds: {case: lower}}
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/motion.js
+  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+extra:
+  generator: false
+
+nav:
+  - 首页: index.md
+  - 弹性力学:
+      - 弹性力学/index.md
+      - 第 1 章 绪论: 弹性力学/ch1.md
+      - 第 2 章 应力状态理论: 弹性力学/ch2.md
+      - 第 3 章 应变状态理论: 弹性力学/ch3.md
+      - 第 4 章 应力和应变的关系: 弹性力学/ch4.md
+      - 第 5 章 弹性力学问题的建立和一般原理: 弹性力学/ch5.md
+      - 第 6 章 平面问题的直角坐标解答: 弹性力学/ch6.md
+      - 第 7 章 平面问题的极坐标解答: 弹性力学/ch7.md
