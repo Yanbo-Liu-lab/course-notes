@@ -18,6 +18,7 @@ PY=${PYTHON:-python3}
 REF=${REF_DOCX:-$ROOT/ref_zh.docx}
 NAME=$(basename "$SRC" .md)
 WORK=${WORK_DIR:-$OUT/.work}
+SRC_ABS=$(cd "$(dirname "$SRC")" && pwd)
 mkdir -p "$OUT" "$WORK"
 
 MAP=( [1]=一 [2]=二 [3]=三 [4]=四 [5]=五 [6]=六 [7]=七
@@ -31,9 +32,9 @@ NORM="$WORK/${NAME}.norm.md"
 "$PY" "$ROOT/scripts/normalize_md.py" "$WORKMD" "$NORM"
 
 pandoc "$NORM" -o "$OUT/${NAME}.docx" \
-  --from markdown+tex_math_dollars+pipe_tables+tex_math_single_backslash \
+  --from markdown+tex_math_dollars+pipe_tables+tex_math_single_backslash-implicit_figures \
   --reference-doc "$REF" \
-  --resource-path "$OUT"
+  --resource-path "$OUT:$SRC_ABS"
 
 "$PY" "$ROOT/scripts/fix_tables.py" "$OUT/${NAME}.docx" >/dev/null
 

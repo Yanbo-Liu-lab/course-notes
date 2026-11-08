@@ -7,11 +7,14 @@ across pages, and the header row repeats.
 
 usage: fix_tables.py <file.docx>
 """
+import re
 import sys
 
 from docx import Document
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
+from docx.shared import Cm
+from docx.enum.text import WD_ALIGN_PARAGRAPH
 
 CONTENT_WIDTH = 8504  # A4 21cm minus 3cm margins each side, in twips
 
@@ -72,10 +75,32 @@ def fix_table(table):
             set_attr(tcPr, 'w:tcW', type='dxa', w=str(widths[j]))
 
 
+def fix_images(doc, max_width_cm=15.0):
+    """Cap inline image width to the A4 text width (15 cm)."""
+    max_width = Cm(max_width_cm)
+    for shape in doc.inline_shapes:
+        try:
+            if shape.width and shape.width > max_width:
+                ratio = shape.height / shape.width
+                shape.width = max_width
+                shape.height = Cm(max_width_cm * ratio)
+        except Exception:
+            pass
+
+
+def center_images_and_captions(doc):
+    for p in doc.paragraphs:
+        text = p.text.strip()
+        if p._p.xpath('.//w:drawing') or re.match(r'^图\s*\d', text):
+            p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+
+
 def main(path):
     doc = Document(path)
     for table in doc.tables:
         fix_table(table)
+    fix_images(doc)
+    center_images_and_captions(doc)
     doc.save(path)
     print(f'{path}: fixed {len(doc.tables)} table(s)')
 

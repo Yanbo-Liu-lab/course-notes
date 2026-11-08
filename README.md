@@ -7,6 +7,7 @@
 | 科目 | 教材 / 范围 | 版本 | 篇幅 |
 |---|---|---|---|
 | [弹性力学](docs/弹性力学/) | 吴家龙《弹性力学》（第 3 版）第 1–7 章 | 自适应结构版 | A4，85 页 |
+| [流体力学](docs/流体力学/) | 林建忠等《流体力学》（第 2 版）第 1–5 章 | 自适应结构版 + 配图 | A4，86 页，11 张图 |
 
 ## 阅读站点
 
@@ -64,7 +65,7 @@ gh repo create course-notes --public --source=. --remote=github --push
 
 站点在 GitHub Actions 里用 [StatiCrypt](https://github.com/robinmoisson/staticrypt) 加密后再发布，密码保存在仓库 Secret `STATICRYPT_PASSWORD` 中，不写进代码。
 
-- 修改密码：仓库 **Settings → Secrets and variables → Actions → STATICRYPT_PASSWORD → Update**，然后重新运行 `构建并部署站点`；
+- 修改密码：仓库 **Settings → Secrets and variables → Actions → STATICRYPT_PASSWORD → Update**，然后重新运行 `构建并部署站点` 或 `从 Gitee 同步并部署`；
 - 密码页模板在 `方法与工具/staticrypt_template.html`；
 - 这是前端加密门：HTML 内容被加密，但 GitHub/Gitee 仓库、PDF 直链仍然公开，不能替代真正的服务端鉴权。
 
@@ -90,10 +91,16 @@ course-notes/
 │   │   ├── index.md          科目页（章节目录 + 下载）
 │   │   ├── ch1.md … ch7.md   各章正文
 │   │   └── pdf/              构建时复制的 PDF/Word（不进 git）
+│   ├── 流体力学/
+│   │   ├── index.md          科目页
+│   │   ├── ch1.md … ch5.md   各章正文
+│   │   ├── images/           11 张示意图
+│   │   └── pdf/              构建时复制的 PDF/Word（不进 git）
 │   ├── assets/favicon.svg    站点图标
 │   ├── javascripts/          MathJax 配置
 │   └── stylesheets/          纸墨配色与排版
 ├── 弹性力学/                 成品：整本 PDF、DOCX、分章节 PDF
+├── 流体力学/                 成品：整本 PDF、DOCX、分章节 PDF
 ├── 方法与工具/               生成与排版流水线
 │   ├── 制作流程.md
 │   ├── prompts/              提示词模板 + 大纲写法
@@ -117,5 +124,6 @@ course-notes/
 
 - 教材原文（OCR 文本、扫描件）**不在仓库内**：一是受版权保护，二是体积大。仓库只放自己整理的总结、提示词和脚本。
 - 总结是个人复习梳理，不能替代教材；公式、结论与符号以教材为准。
+- 流体力学的配图脚本在 `方法与工具/figures/fluid_figures.py`；
 - `方法与工具/scripts/update_toc.py` 依赖 LibreOffice + python3-uno，可选；不装也能在 Word 里手动更新目录。
 - 站点依赖的 `docs/*/pdf/` 是生成目录，已被 git 忽略；`bash site.sh serve|build` 会自动准备。

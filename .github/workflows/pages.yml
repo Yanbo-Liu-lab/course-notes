@@ -36,9 +36,11 @@ jobs:
 
       - name: 准备 PDF / Word 并构建
         run: |
-          mkdir -p docs/弹性力学/pdf
+          mkdir -p docs/弹性力学/pdf docs/流体力学/pdf
           cp 弹性力学/*.pdf 弹性力学/*.docx docs/弹性力学/pdf/
           cp 弹性力学/分章节/*.pdf docs/弹性力学/pdf/
+          cp 流体力学/*.pdf 流体力学/*.docx docs/流体力学/pdf/
+          cp 流体力学/分章节/*.pdf docs/流体力学/pdf/
           mkdocs build --clean
 
       - name: 加密站点

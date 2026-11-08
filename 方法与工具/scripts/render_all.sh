@@ -27,6 +27,7 @@ OUTNAME=${OUTNAME:-$TITLE}
 ROOT=$(cd "$(dirname "$0")"/.. && pwd)
 PY=${PYTHON:-python3}
 WORK=${WORK_DIR:-$OUT/.work}
+SRC_ABS=$(cd "$SRC_DIR" && pwd)
 mkdir -p "$OUT" "$WORK"
 
 if [ ! -f "$ROOT/ref_zh.docx" ]; then
@@ -47,16 +48,16 @@ for i in $(seq 1 "$N"); do
   echo "== 第 $i 章：$t =="
   WORK_DIR="$WORK" PYTHON="$PY" \
     "$ROOT/scripts/convert_chapter.sh" "$SRC_DIR/ch$i.md" "$i" "$t" "$OUT"
-  "$ROOT/scripts/build_pdf.sh" "$WORK/ch$i.norm.md" "$OUT/ch$i.pdf"
+  RESOURCE_PATH="$SRC_ABS" "$ROOT/scripts/build_pdf.sh" "$WORK/ch$i.norm.md" "$OUT/ch$i.pdf"
 done
 
 echo "== 合并 Word =="
 "$PY" "$ROOT/scripts/merge_md.py" "$WORK" "$WORK/merged_docx.md" \
   --format docx --title "$TITLE" --subtitle "$SUBTITLE" --date "$DATE" --chapters "1-$N"
 pandoc "$WORK/merged_docx.md" -o "$OUT/${OUTNAME}.docx" \
-  --from markdown+tex_math_dollars+pipe_tables+tex_math_single_backslash \
+  --from markdown+tex_math_dollars+pipe_tables+tex_math_single_backslash-implicit_figures \
   --reference-doc "$ROOT/ref_zh.docx" \
-  --resource-path "$OUT"
+  --resource-path "$SRC_ABS:$OUT"
 "$PY" "$ROOT/scripts/fix_tables.py" "$OUT/${OUTNAME}.docx" >/dev/null
 echo "OK $OUT/${OUTNAME}.docx"
 
@@ -64,8 +65,9 @@ echo "== 合并 PDF =="
 "$PY" "$ROOT/scripts/merge_md.py" "$WORK" "$WORK/merged_pdf.md" \
   --format pdf --title "$TITLE" --subtitle "$SUBTITLE" --date "$DATE" --chapters "1-$N"
 pandoc "$WORK/merged_pdf.md" -o "$OUT/${OUTNAME}.pdf" \
-  --from markdown+tex_math_dollars+pipe_tables+tex_math_single_backslash \
+  --from markdown+tex_math_dollars+pipe_tables+tex_math_single_backslash-implicit_figures \
   --pdf-engine=xelatex \
+  --resource-path "$SRC_ABS" \
   --template="$ROOT/latex/template_zh.tex" \
   --include-in-header="$ROOT/latex/header_zh.tex" \
   --toc --toc-depth=2 -V toc-title="目　录" \

@@ -23,12 +23,14 @@ ensure_mkdocs() {
 }
 
 prepare() {
-  local dst="$ROOT/docs/弹性力学/pdf"
-  mkdir -p "$dst"
-  cp "$ROOT/弹性力学"/*.pdf "$dst"/
-  cp "$ROOT/弹性力学"/*.docx "$dst"/
-  cp "$ROOT/弹性力学"/分章节/*.pdf "$dst"/
-  echo "已复制 PDF / Word 到 docs/弹性力学/pdf/"
+  local subj dst
+  for subj in 弹性力学 流体力学; do
+    dst="$ROOT/docs/$subj/pdf"
+    mkdir -p "$dst"
+    cp "$ROOT/$subj"/*.pdf "$ROOT/$subj"/*.docx "$dst"/ 2>/dev/null || true
+    cp "$ROOT/$subj"/分章节/*.pdf "$dst"/ 2>/dev/null || true
+  done
+  echo "已复制 PDF / Word 到 docs/*/pdf/"
 }
 
 case "${1:-serve}" in

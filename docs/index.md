@@ -32,6 +32,24 @@ hide:
       </span>
     </span>
   </a>
+
+  <a class="course-card" href="流体力学/">
+    <span class="course-card__inner">
+      <span class="course-card__num">02</span>
+      <span class="course-card__body">
+        <span class="course-card__title">流体力学</span>
+        <span class="course-card__meta">林建忠《流体力学》第 2 版 · 第 1–5 章 · 配图</span>
+        <span class="course-card__desc">从连续介质与粘性出发，串起静力学、三大守恒方程、伯努利方程和平面势流。</span>
+        <span class="course-card__cta">进入课程<span class="course-card__arrow" aria-hidden="true">→</span></span>
+      </span>
+      <span class="course-card__plate">
+        <span class="arithmatex">\[
+        p+\frac{1}{2}\rho V^{2}+\rho g z=C
+        \]</span>
+        <span class="course-card__caption">伯努利方程 · 第四章</span>
+      </span>
+    </span>
+  </a>
 </div>
 
 </div>

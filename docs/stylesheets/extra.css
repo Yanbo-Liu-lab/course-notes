@@ -1084,3 +1084,37 @@ html.motion-ready .reveal.is-visible {
     animation-iteration-count: 1 !important;
   }
 }
+
+
+/* 章节配图 */
+.md-typeset img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.6rem auto 0.4rem;
+  border: 1px solid #deddd5;
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+
+.md-typeset p:has(> img) + p {
+  margin: 0.2rem 0 2rem;
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  line-height: 1.65;
+  color: var(--muted);
+  text-align: center;
+}
+
+.md-typeset .figure-caption {
+  margin: 0.2rem 0 2rem;
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  line-height: 1.65;
+  color: var(--muted);
+  text-align: center;
+}
+
+[data-md-color-scheme="slate"] .md-typeset img {
+  border-color: #3a403b;
+}

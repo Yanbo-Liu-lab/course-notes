@@ -9,11 +9,13 @@ set -euo pipefail
 NORM=${1:?用法: build_pdf.sh <norm.md> <输出.pdf>}
 OUT=${2:?缺输出 PDF}
 ROOT=$(cd "$(dirname "$0")"/.. && pwd)
+RES=${RESOURCE_PATH:-$PWD}
 
 pandoc "$NORM" -o "$OUT" \
-  --from markdown+tex_math_dollars+pipe_tables+tex_math_single_backslash \
+  --from markdown+tex_math_dollars+pipe_tables+tex_math_single_backslash-implicit_figures \
   --pdf-engine=xelatex \
   --include-in-header="$ROOT/latex/header_zh.tex" \
+  --resource-path "$RES" \
   -V documentclass=article -V fontsize=11pt -V linestretch=1.3 -V indent=true \
   -V papersize=a4 \
   -V CJKmainfont="Noto Serif CJK SC" -V mainfont="TeX Gyre Termes" \
