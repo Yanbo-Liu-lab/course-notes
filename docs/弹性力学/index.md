@@ -10,6 +10,8 @@ title: 弹性力学
   <span>7 章笔记</span>
 </div>
 
+<p class="download-note">整本下载：<a href="pdf/弹性力学_前七章_知识点总结_自适应版.pdf">PDF</a>（A4 · 85 页），<a href="pdf/弹性力学_前七章_知识点总结_自适应版.docx">Word 版</a></p>
+
 ## 章节目录
 
 <div class="chapter-list">
@@ -71,15 +73,3 @@ title: 弹性力学
   </a>
 </div>
 
-## 下载
-
-<div class="download-grid">
-  <a class="download-item" href="pdf/弹性力学_前七章_知识点总结_自适应版.pdf">
-    <span class="download-item__label">整本 PDF</span>
-    <span class="download-item__meta">A4 · 85 页</span>
-  </a>
-  <a class="download-item" href="pdf/弹性力学_前七章_知识点总结_自适应版.docx">
-    <span class="download-item__label">Word 版</span>
-    <span class="download-item__meta">公式可编辑</span>
-  </a>
-</div>

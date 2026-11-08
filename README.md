@@ -64,6 +64,15 @@ gh repo create course-notes --public --source=. --remote=github --push
 - 密码页模板在 `方法与工具/staticrypt_template.html`；
 - 这是前端加密门：HTML 内容被加密，但 GitHub/Gitee 仓库、PDF 直链仍然公开，不能替代真正的服务端鉴权。
 
+## 协作
+
+建议在 **Gitee** 上协作，GitHub 只负责部署：
+
+1. Gitee 仓库 → **管理 → 仓库成员管理 → 添加仓库成员**，给同学「开发者」权限；
+2. 同学 clone `https://gitee.com/the-fifth-seaso/course-notes.git`，修改 `docs/` 下的 Markdown 后 push；
+3. GitHub 的密码存在 Actions Secret 里，不要把这个 Secret 或 GitHub token 发给协作者；
+4. Gitee 更新后 GitHub 站点不会自动同步，需要维护者再同步一次到 GitHub。
+
 ## 目录结构
 
 ```
