@@ -1,0 +1,83 @@
+# 定时从 Gitee 源仓库拉取内容，重新构建并部署到 GitHub Pages。
+# Gitee 是源仓库，GitHub 只负责发布；因此在 Gitee 提交后，最多约 15 分钟自动更新。
+name: 从 Gitee 同步并部署
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 拉取 Gitee 源仓库
+        run: |
+          git clone --depth 1 --branch master \
+            https://gitee.com/the-fifth-seaso/course-notes.git src
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 启用 / 配置 GitHub Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: 安装 MkDocs Material
+        run: pip install mkdocs-material==9.7.6
+
+      - name: 准备 PDF / Word 并构建
+        working-directory: src
+        run: |
+          mkdir -p docs/弹性力学/pdf
+          cp 弹性力学/*.pdf 弹性力学/*.docx docs/弹性力学/pdf/
+          cp 弹性力学/分章节/*.pdf docs/弹性力学/pdf/
+          mkdocs build --clean
+
+      - name: 加密站点
+        working-directory: src
+        env:
+          STATICRYPT_PASSWORD: ${{ secrets.STATICRYPT_PASSWORD }}
+        run: |
+          if [ -z "$STATICRYPT_PASSWORD" ]; then
+            echo "缺少 STATICRYPT_PASSWORD Secret，无法加密站点" >&2
+            exit 1
+          fi
+          npx --yes staticrypt@3.5.4 site -r -d site_enc \
+            -p "$STATICRYPT_PASSWORD" --remember 30 --short \
+            -t 方法与工具/staticrypt_template.html \
+            --template-title '知枢' \
+            --template-instructions '请输入访问密码' \
+            --template-placeholder '密码' \
+            --template-button '进入' \
+            --template-remember '30 天内记住我' \
+            --template-error '密码不对，请重试' \
+            --template-toggle-show '显示密码' \
+            --template-toggle-hide '隐藏密码' \
+            --template-color-primary '#2f5d50' \
+            --template-color-secondary '#f8f7f3'
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: src/site_enc/site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

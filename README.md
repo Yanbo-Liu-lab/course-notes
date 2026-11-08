@@ -56,6 +56,10 @@ gh repo create course-notes --public --source=. --remote=github --push
 
 国内访问 GitHub Pages 不稳定时，可以像参考站一样用浙大 WebVPN 打开。
 
+### 自动同步
+
+`.github/workflows/sync-gitee.yml` 每 15 分钟从 Gitee 拉取源仓库，重新构建并部署。Gitee 提交后最多约 15 分钟自动更新，不依赖本地电脑开机。
+
 ### 访问密码
 
 站点在 GitHub Actions 里用 [StatiCrypt](https://github.com/robinmoisson/staticrypt) 加密后再发布，密码保存在仓库 Secret `STATICRYPT_PASSWORD` 中，不写进代码。
@@ -71,7 +75,7 @@ gh repo create course-notes --public --source=. --remote=github --push
 1. Gitee 仓库 → **管理 → 仓库成员管理 → 添加仓库成员**，给同学「开发者」权限；
 2. 同学 clone `https://gitee.com/the-fifth-seaso/course-notes.git`，修改 `docs/` 下的 Markdown 后 push；
 3. GitHub 的密码存在 Actions Secret 里，不要把这个 Secret 或 GitHub token 发给协作者；
-4. Gitee 更新后 GitHub 站点不会自动同步，需要维护者再同步一次到 GitHub。
+4. Gitee 更新后，GitHub 的「从 Gitee 同步并部署」工作流每 15 分钟自动拉取并部署；也可以在 Actions 里手动运行。
 
 ## 目录结构
 
