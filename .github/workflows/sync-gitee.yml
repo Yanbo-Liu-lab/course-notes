@@ -40,13 +40,15 @@ jobs:
       - name: 准备 PDF / Word 并构建
         working-directory: src
         run: |
-          mkdir -p docs/弹性力学/pdf docs/流体力学/pdf docs/振动力学/pdf
+          mkdir -p docs/弹性力学/pdf docs/流体力学/pdf docs/振动力学/pdf docs/误差理论与数据处理/pdf
           cp 弹性力学/*.pdf 弹性力学/*.docx docs/弹性力学/pdf/
           cp 弹性力学/分章节/*.pdf docs/弹性力学/pdf/
           cp 流体力学/*.pdf 流体力学/*.docx docs/流体力学/pdf/
           cp 流体力学/分章节/*.pdf docs/流体力学/pdf/
           cp 振动力学/*.pdf 振动力学/*.docx docs/振动力学/pdf/
           cp 振动力学/分章节/*.pdf docs/振动力学/pdf/
+          cp 误差理论与数据处理/*.pdf 误差理论与数据处理/*.docx docs/误差理论与数据处理/pdf/
+          cp 误差理论与数据处理/分章节/*.pdf docs/误差理论与数据处理/pdf/
           mkdocs build --clean
 
       - name: 加密站点
